@@ -9,7 +9,7 @@ Note that an empty array is considered strictly increasing.
 
 A subarray is a contiguous non-empty sequence of elements within an array.
 
- 
+
 
 Example 1:
 
@@ -27,7 +27,7 @@ Example 3:
 Input: nums = [8,7,6,6]
 Output: 3
 Explanation: The 3 incremovable subarrays are: [8,7,6], [7,6,6], and [8,7,6,6]. Note that [8,7] is not an incremovable subarray because after removing [8,7] nums becomes [6,6], which is sorted in ascending order but not strictly increasing.
- 
+
 
 Constraints:
 
@@ -39,30 +39,41 @@ Constraints:
 using namespace std;
 #define ll long long
 
-class Solution {
+class Solution
+{
 public:
-  int incremovableSubarrayCount(vector<int>& nums) {
-    int ans = 0;
-    for(int i = 0; i < nums.size(); ++i){
-        for(int j = i; j < nums.size(); ++j){
-            int last = -1, flag = 1;
-            for(int k = 0; k < nums.size(); ++k){
-                if(k >= i && k <= j) continue;
-                if(last >= nums[k]){ flag = 0; break; }
-                last = nums[k];
+    int incremovableSubarrayCount(vector<int> &nums)
+    {
+        int ans = 0;
+        for (int i = 0; i < nums.size(); ++i)
+        {
+            for (int j = i; j < nums.size(); ++j)
+            {
+                int last = -1, flag = 1;
+                for (int k = 0; k < nums.size(); ++k)
+                {
+                    if (k >= i && k <= j)
+                        continue;
+                    if (last >= nums[k])
+                    {
+                        flag = 0;
+                        break;
+                    }
+                    last = nums[k];
+                }
+                if (flag)
+                    ans++;
             }
-            if(flag) ans++;
         }
+        return ans;
     }
-    return ans;
-}
 };
 
 int main()
 {
     Solution ss;
 
-    vector<int>  nums = {6,5,7,8};
+    vector<int> nums = {6, 5, 7, 8};
 
     int ans = ss.incremovableSubarrayCount(nums);
     cout << ans << endl;
